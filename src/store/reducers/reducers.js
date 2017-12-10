@@ -8,22 +8,16 @@ const initialState = {
 const reducers = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.PERSON_ADDED:
-            const newPerson = {
-                id: Math.random(), // not really unique but good enough here!
-                name: 'Max',
-                age: Math.floor(Math.random() * 40)
-            };
-            return {
-                ...state.persons,
-                persons: state.persons.concat(newPerson)
-            };
+        return {
+            ...state, persons : [...state.persons, action.payload]
+        };
         case actionTypes.PERSON_DELETED:
         return {
                 ...state.persons,
-                persons : state.persons.splice(action.unId,1)
+                persons : state.persons.filter(person => person.id !== action.unId)
             };
+        default: return state;
     }
-    return state;
 }
 
 export default reducers;
